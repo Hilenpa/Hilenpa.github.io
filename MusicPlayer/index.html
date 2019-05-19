@@ -1,0 +1,222 @@
+<html>
+    <head>
+        <link href="Main.css" rel="stylesheet"/>
+    </head>
+    <body>
+        <div id="bg">
+            <div id="blackLayer"></div>
+            <img src="mercury.jpg" class="back">
+        </div>
+       
+        <div id="main">
+            <div id="image">
+                <img src="mercury.jpg" class="imagesong">
+            </div>
+            <div id="player">
+                <div id="songTitle">Demo</div>
+                <div id="buttons">
+                    <button id="pre" onclick="pre()"><img src="Pre.png" height="90%" width="90%"/></button>
+                    <button id="play" onclick="playOrPauseSong()"><img src="Play.png" class="butplay"></button>
+                    <button id="next" onclick="next()"><img src="Next.png" height="90%" width="90%"/></button>
+                </div>
+                
+                <div id="seek-bar">
+                    <div id="fill"></div>
+                    <div id="handle"></div>
+                </div>
+                <div class="time">00:00/00:00</div>
+            </div>
+        </div>
+    </body>
+<script>
+    var songs = ["mercurymusic.mp3", "dancedead.mp3", "badguysong.mp3"];
+    var posters = ["mercury.jpg", "dancetilldead.jpg", "badguy.jpg"];
+    var songsName = ["GHOSTEMANE – Mercury", "DANCE TILL YOU'RE DEAD", "Billie Eilish - bad guy"];
+    var song = new Audio();
+    var songNumber = 0;
+    var fill = document.getElementById("fill");
+    var songTitle = document.getElementById("songTitle");
+    var barSize = 250;
+    var bar = document.querySelector("#seek-bar");
+    var block = document.querySelector("#main");
+    var currentTime = document.querySelector(".time");
+    function startSong(){
+        song.src = songs[songNumber];
+        songTitle.textContent = songsName[songNumber];
+        setTimeout(function(){song.pause();},0);
+    }
+    window.onload = startSong();
+    function playSong(){
+        song.src = songs[songNumber];
+        songTitle.textContent = songsName[songNumber];
+        setTimeout(function(){song.play();},0); 
+    }
+    function playOrPauseSong(){
+        if (song.paused) {
+            song.play();
+            document.querySelector(".butplay").src = "Pause.png";
+        }
+        else {song.pause();
+            document.querySelector(".butplay").src = "Play.png";
+        }
+    }
+        song.addEventListener("timeupdate", function(){
+            var position = song.currentTime/song.duration;
+            fill.style.width = position * 100 +"%";
+            convertTime(Math.round(song.currentTime));
+            if (song.ended) {
+                next();
+            }
+        });
+        function next(){
+            songNumber++;
+            if (songNumber > 2) {
+                songNumber = 0;
+            }
+            playSong();
+            document.querySelector(".butplay").src = "Pause.png";
+            document.querySelector(".back").src = posters[songNumber];
+            document.querySelector(".imagesong").src = posters[songNumber];
+        }
+         function pre(){
+            songNumber--;
+            if (songNumber < 0) {
+                songNumber = 2;
+            }
+            playSong();
+            document.querySelector(".butplay").src = "Pause.png";
+            document.querySelector(".back").src = posters[songNumber];
+            document.querySelector(".imagesong").src = posters[songNumber];
+        }
+        bar.addEventListener("click", function(e){
+            if (!song.ended) {
+                var mouseX = e.pageX - bar.offsetLeft - block.offsetLeft;
+                var newTime = mouseX * song.duration/barSize;
+                song.currentTime = newTime;
+                fill.style.width = mouseX + "px";
+            }
+        })
+        function convertTime(seconds){
+            var min = Math.floor(seconds/60);
+            var sec = seconds%60;
+            min = (min<10) ? "0" + min : min;
+            sec = (sec<10) ? "0" + sec : sec;
+            currentTime.textContent = min + ":"+sec;
+            totalTime(Math.round(song.duration));
+        }
+        function totalTime(seconds){
+            var min = Math.floor(seconds/60);
+            var sec = seconds%60;
+            min = (min<10) ? "0" + min : min;
+            sec = (sec<10) ? "0" + sec : sec;
+            currentTime.textContent += "/" + min + ":"+ sec;
+        }
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
